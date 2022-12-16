@@ -1,0 +1,40 @@
+{% extends "weblog_app/base.html" %}
+
+{% block body %}
+
+{% load crispy_forms_tags %}
+
+    <!--Login--> 
+<div class="container">
+
+    {% for message in messages %}
+    <div class="alert alert-info alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Info!</strong> {{ message }}  
+        {% endfor %}  
+    </div>
+
+
+    <div class="blog_post center">
+        <div class="container py-5">
+            <div class="container_copy">
+                <div class="container py-5">
+                <h1 style="color: #337ab7;"> <b> Login </b></h1>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ login_form|crispy }}
+                    <br>
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <br> 
+                    <a href="{% url 'register' %}">Create an account</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+  
+  
+
+{% endblock %}

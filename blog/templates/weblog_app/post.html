@@ -1,0 +1,65 @@
+{% extends "weblog_app/base.html" %}
+
+{% block body %}
+
+<div class="container">
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Info!</strong> {{ message }}  
+                {% endfor %}  
+            </div>
+        
+            <div class="blog_post center">
+                <div class="container py-5">
+                    <div class="container_copy" >
+
+                        <div class="img_pod" style="background: #337ab7; margin-top: 70px; margin-left: 50%;">
+                            <img src={{post.author.manager.profile_image.url}} alt="random image">
+                        </div>
+
+                        
+                           <a href="{% url 'viewmanager' post.author.id %}"> <p style="display: inline-flex; margin-bottom: 0px;"><b>{{ post.author.username }}</b></p></a>
+                            <h3 style="display: inline-flex" class="pull-right"><i>{{ post.pub_date|date:"d M Y" }}</i></h3>
+                            <hr>
+                            
+                            <h1> <b> {{ post.title }} </b></h1>
+                            <p> <i> {{ post.body| safe  }} </i></p>
+                            <hr>
+ 
+                            <h3>Comments:</h3>
+                            
+                            {% for comment in comments %}
+
+                            <div class="dialogbox">
+                                <div class="body">
+                                  <span class="tip tip-left"></span>
+                                  <div class="message">
+                                    <span>{{ comment.body }} <br><hr>- <a href="{% url 'viewmanager' comment.author.id %}"> {{ comment.author}}</a> <h3 style="display: inline-flex" class="pull-right"><i>{{ comment.date|date:"d.m.Y H:i" }} <h3></i></span>
+                            
+                                  </div>
+                                </div>
+                              </div>
+
+                            {% endfor %}
+
+                            {% if user.is_authenticated %}
+                            <form action="{% url 'addcomment' post.id %}" method="post" style="display: grid; height: 100px;">{% csrf_token %}
+                                
+                                <!-- <input id="your_name" type="text" name="your_name" value="{{ comment_form.body}}"> -->
+                                
+                                {{ comment_form.body}}
+                                <input type="submit" value="Add comment"/>
+                            </form>
+                     
+                            {% else %}
+                            <p >You must be logged in to add a comment. <br> 
+                            <a href="{% url 'login' %}">login</a></p>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+</div>
+        
+{% endblock %}

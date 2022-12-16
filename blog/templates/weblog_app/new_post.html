@@ -1,0 +1,35 @@
+{% extends "weblog_app/base.html" %}
+
+{% block body %}
+
+<div class="container">
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Info!</strong> {{ message }}  
+                {% endfor %}  
+            </div>
+
+        <div class="blog_post center">
+          <div class="container py-5">
+             <div class="container_copy" >
+           <h1>Create new post</h1>
+
+           <form method="POST">
+            {% csrf_token %}
+            
+            {{ form.media }}
+            
+            {{ form.as_p }}
+          
+            <input type="submit" value="Submit"/>
+            </form>
+
+
+        </div>
+      </div>
+    </div>
+            
+</div>
+        
+{% endblock %}

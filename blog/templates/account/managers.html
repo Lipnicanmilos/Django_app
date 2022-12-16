@@ -1,0 +1,46 @@
+{% extends "weblog_app/base.html" %}
+
+{% block body %}
+
+<div class="container">
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Info!</strong> {{ message }}  
+                {% endfor %}  
+            </div>
+        
+            <div class="blog_post center">
+                <div class="container py-5">
+                    <div class="container_copy" >
+
+                            <table class="table">
+                                <thead class="thead-dark">
+                                  <tr>
+                                    <!-- <th scope="col">#</th> -->
+                                    <th scope="col">Nick</th>
+                                    <!-- <th scope="col">first_name</th>
+                                    <th scope="col">last_name</th> -->
+                                    <th scope="col">info</th>
+                                    <!-- <th scope="col">Teams</th> -->
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for manager in all_managers %}
+                                  <tr>
+                                    <!-- <th scope="row">1</th> -->
+                                    <td><a href="{% url 'viewmanager' manager.user.id %}"> {{ manager.user }}</a></td>
+                                    <td>{{ manager.info }}</td> 
+                                    <!-- <td>sadf</td>  -->
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                                                          
+                    </div>
+                </div>
+            </div>
+            
+</div>
+        
+{% endblock %}

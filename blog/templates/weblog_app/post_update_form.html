@@ -1,0 +1,37 @@
+{% extends "weblog_app/base.html" %}
+
+{% block body %}
+
+<div class="container">
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Info!</strong> {{ message }}  
+                {% endfor %}  
+            </div>
+
+    <div class="blog_post center">
+      <div class=" py-5">
+          <div class="container_copy" >
+           
+            <!-- select name season name -->
+            
+            <h2>Update Member Details</h2>
+            <form method="post" enctype="multipart/form-data">
+            <div>
+              {% csrf_token %} 
+              {{ form.media }}
+              {{ form.as_p }}
+              <input type="submit" value="Save" />
+            </div>
+            </form>
+                
+            
+
+        </div>
+      </div>
+    </div>
+            
+</div>
+        
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends "weblog_app/base.html" %}
+
+
+
+
+{% block body %}
+
+<div class="container">
+
+        {% for message in messages %}
+        <div class="alert alert-info alert-dismissible" style="display: block; margin-bottom: 60px;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Info!</strong> {{ message }}  
+            {% endfor %}  
+        </div>
+
+
+
+        <div class="blog_post center">
+            <div class="container py-5">
+                <div class="container_copy" >
+                    <div class="container py-5" style="width: auto;">
+
+                      <div class="img_pod" style="background: #337ab7; margin-top: 33px; margin-left: 50%;">
+                        <img src={{manager.profile_image.url}} alt="random image">
+
+                    </div>
+
+                    <h1 style="color: #337ab7;"> <b> Profil </b></h1>
+
+                    <h3>Nick:</h3> <h2 style="margin: 0px;">{{ user.username }}</h2>
+
+                    <h3>First name:</h3> <h2 style="margin: 0px;">{{ user.first_name }}</h2> 
+                    <h3>Surname:</h3> <h2 style="margin: 0px;">{{ user.last_name }} </h2>
+                    <h3>Email:</h3> <h2 style="margin: 0px;">{{ user.email }}</h2>
+                    <h3>Info:</h3> <h2 style="margin: 0px;">{{ manager.info }}</h2>
+                    <hr style="width: auto;">
+                    <table class="table table-bordered" style="width: auto;">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">Teams</th>
+                          <th scope="col">Pokal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                  {% for x in teams %}
+                     <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td> <a href="{% url 'team' x.id %}"> {{ x.name }} </a></td> 
+                      <td> <a href="{% url 'tables' x.season_name.id %}"> {{ x.season_name }}</a></td> 
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                    <br>
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Update profile</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+<!-- ///////////////////////////////////// -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Update profile</button> -->
+
+<!-- updata  -->
+
+  
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update profile</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Username:</label>
+              <input type="text" class="form-control" id="recipient-name" placeholder={{u_form.username}} 
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">First name:</label>
+              <input type="text" class="form-control" id="recipient-name" placeholder="{{u_form.first_name}}
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Last name:</label>
+              <input type="text" class="form-control" id="recipient-name" placeholder="{{u_form.last_name}}
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Email:</label>
+              <input type="text" class="form-control" id="recipient-name" placeholder="{{u_form.email}}
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Info:</label>
+              <textarea class="form-control" id="message-text" placeholder={{p_form.info}}
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Image:</label>
+              {{p_form.profile_image}}
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "weblog_app/base.html" %}
+
+{% block body %}
+
+<div class="container">
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Info!</strong> {{ message }}  
+                {% endfor %}  
+            </div>
+
+        <div class="blog_post center">
+          <div class="container py-5">
+             <div class="container_copy" >
+           
+
+              <h1>Delete Your Details</h1>
+
+              <p>Are you sure you want to delete your details: {{ post }}?</p>
+
+              <form action="" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Confirm">
+              </form>
+
+
+        </div>
+      </div>
+    </div>
+            
+</div>
+        
+{% endblock %}

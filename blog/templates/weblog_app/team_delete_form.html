@@ -1,0 +1,37 @@
+{% extends "weblog_app/base.html" %}
+
+{% block body %}
+
+<div class="container">
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Info!</strong> {{ message }}  
+                {% endfor %}  
+            </div>
+
+    <div class="blog_post center">
+      <div class=" py-5">
+          <div class="container_copy" >
+           
+            <!-- select name season name -->
+            
+            <h1>Delete Your Team</h1>
+
+            <p>Are you sure you want to delete your team: {{ team.name }}?</p>
+
+            <form action="" method="POST">
+              {% csrf_token %}
+              <input type="submit" value="Delete">
+            </form>
+            <a href="{% url 'team' team.id %}"><input type="button" value="Cancel"></a>
+                
+            
+
+        </div>
+      </div>
+    </div>
+            
+</div>
+        
+{% endblock %}

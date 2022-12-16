@@ -1,0 +1,121 @@
+{% extends "weblog_app/base.html" %}
+
+
+{% block body %}
+
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert alert-info alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Info!</strong> {{ message }}
+            {% endfor %}
+        </div>
+
+        {% if user.is_authenticated %}
+
+        <div class="d-grid gap-2 col-6 mx-auto" style="text-align: center; padding-bottom: 35px;">
+          <a href="{% url 'createpost' %}"><button class="btn btn-outline-primary" type="button"> Create new post </button></a>
+        </div>
+
+        {% endif %}
+
+        {% for post in posts %}
+
+
+
+
+
+
+        <!-- blog ///////////////////////// -->
+
+        <div class="blog_post center">
+            <!-- <div class="img_pod">
+                <!-- <img src="https://pbs.twimg.com/profile_images/890901007387025408/oztASP4n.jpg" alt="random image"> -->
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                  </svg>
+            </div> -->
+            <div class="container_copy">
+
+
+              <div class="img_pod" style="background: #337ab7; margin-top: 35px; margin-left: 50%;">
+                <img src={{post.author.manager.profile_image.url}} alt="random image">
+            </div>
+
+              <p style="display: inline-flex; margin-bottom: 0px;"><b> <a href="{% url 'viewmanager' post.author.id %}">{{ post.author.username }}</a></b></p>
+
+              <h3 style="display: inline-flex" class="pull-right"><i>{{ post.pub_date|date:"d M Y" }}</i></h3>
+
+              {% if post.author.username == manager.username %}
+              <br>
+              <a href="{% url 'updatepost' post.id %}" style="text-decoration: none"> 
+                <button class="btn btn-outline-primary" type="button">update post</button>
+              </a> 
+              <a href="{% url 'deletepost' post.id %}" style="text-decoration: none"> 
+                <button class="btn btn-outline-primary" type="button">delete post</button>
+              </a> 
+              {% endif %}
+
+              <hr>
+              <h1> <b> {{ post.title }} </b></h1>
+              <p> <i> {{ post.body| safe }} </i></p>
+
+
+   
+
+              <a class="btn_primary" href="{% url 'post' post.id %}" style="text-decoration: none">Read more and add a comment.</a>
+            </div>
+
+          </div>
+
+          {% endfor %}
+
+          {% for user in usersview %}
+          <li><a href="#">{{ user.username}}</a></li>
+          {% endfor %}
+
+        
+          <!-- --- Pagination --- -->
+          <div class="d-grid gap-2 col-6 mx-auto" style="text-align: center;">
+
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+    
+                <li class="page-item {% if not posts.has_previous %} disabled {% endif %}">
+                    <a class="page-link" href="?page=1" tabindex="-1">FIRST</a>
+                </li>
+                <li class="page-item {% if not posts.has_previous %} disabled {% endif %}">
+                    <a class="page-link" href="{% if posts.has_previous %}?page={{ posts.previous_page_number }}{% endif %} " tabindex="-1">Previous</a>
+                </li>
+    
+                {% if posts.number|add:'-4' > 1 %}
+                    <li class="page-item disabled"><a class="page-link" href="?page={{ posts.number|add:'-5' }}">&hellip;</a></li>
+                {% endif %}
+    
+                {% for i in posts.paginator.page_range %}
+                    {% if posts.number == i %}
+                        <li class="active page-item disabled"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% elif i > posts.number|add:'-5' and i < posts.number|add:'5' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+    
+                {% if posts.paginator.num_pages > posts.number|add:'4' %}
+                    <li class="page-item disabled"><a class="page-link" href="?page={{ posts.number|add:'5' }}">&hellip;</a></li>
+                {% endif %}
+    
+                <li class="page-item {% if not posts.has_next %} disabled {% endif %}">
+                    <a class="page-link" href="{% if posts.has_next %} ?page={{ posts.next_page_number }} {% endif %}">Next</a>
+                </li>
+                <li class="page-item {% if not posts.has_next %} disabled {% endif %}">
+                    <a class="page-link" href="{% if posts.has_next %} ?page={{ posts.paginator.num_pages }}  {% endif %}">LAST</a>
+                </li>
+            </ul>
+        </nav>  
+      </div>
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "weblog_app/base.html" %}
+
+{% block body %}
+
+<div class="container">
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Info!</strong> {{ message }}  
+                {% endfor %}  
+            </div>
+
+        <div class="blog_post center">
+          <div class="container py-5">
+              <div class="container_copy" >
+           
+
+              <div class="img_pod" style="background: #337ab7; margin-top: 20px;">
+                <img src={{team.image.url}} alt="random image">
+
+              </div>
+
+              <h3>Name:</h3> <h2 style="margin: 0px;">{{ team.name }}</h2>
+              <h3>Leagues:</h3> <h2 style="margin: 0px;"><a href="{% url 'tables' team.season_name.id %}">{{ team.season_name }}</a></h2>
+              <h3>Manager:</h3> <h2 style="margin: 0px;"> <a href="{% url 'viewmanager' team.manager.user.id %}">{{ team.manager }}</a></h2>
+              <div class="table-responsive-xxl">
+                <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Points</th>
+                    <th scope="col">Matches</th>
+                    <th scope="col">W</th>
+                    <th scope="col">D</th>
+                    <th scope="col">L</th>
+                    <th scope="col">+</th>
+                    <th scope="col">-</th>
+                  </tr>
+                </thead>
+        
+            <tbody>
+              <tr>
+                <td><b> {{team.Points}}</b></td>
+                <td>{{team.N_Matches}}</td>
+                <td>{{team.N_Wins}}</td>
+                <td>{{team.N_Draws}}</td>
+                <td>{{team.N_Losses}}</td>
+                <td>{{team.Score_P}}</td>
+                <td>{{team.Score_M}}</td>
+ 
+              </tr>
+            </tbody>
+                </table>
+              {% if team.manager == manager %}  
+                    <a href="{% url 'updateteam' team.pk %}" style="text-decoration: none"> 
+                      <button type="button" class="btn btn-primary" >Update team</button>
+                    </a> 
+                    <a href="{% url 'deleteteam' team.pk %}" style="text-decoration: none"> 
+                      <button type="button" class="btn btn-primary" >Delete team</button>
+                    </a> 
+              {% endif %}
+
+
+              </div>
+      </div>
+    </div>
+            
+  </div>
+</div>
+
+
+
+        
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "weblog_app/base.html" %}
+
+{% block body %}
+
+<div class="container">
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Info!</strong> {{ message }}  
+                {% endfor %}  
+            </div>
+
+    <div class="blog_post center">
+      <div class=" py-5">
+          <div class="container_copy" >
+           
+            <!-- select name season name -->
+            {% for name in team %}
+          
+            <h1 class="ceneter" style="text-align: center; color: #337ab7;">{{ name.name }}</h1>
+            {% endfor %}
+           <hr>
+            <div class="table-responsive-xxl" style="overflow-y: scroll">
+                    <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Logo</th>
+                        <th scope="col" class=fix>Team</th>
+                        <th scope="col">Manager</th>
+                        <th scope="col">Points</th>
+                        <th scope="col">Matches</th>
+                        <th scope="col">W</th>
+                        <th scope="col">D</th>
+                        <th scope="col">L</th>
+                        <th scope="col">+</th>
+                        <th scope="col">-</th>
+                        <th scope="col">Score</th>
+
+            
+            
+                      </tr>
+                    </thead>
+            
+                <tbody>
+                     
+                  {% for team in select_team %}
+              
+                      <tr>
+                    
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td><div >
+                                           <img src="{{ team.image.url }}"
+                                class="rounded-circle img-fluid" style="width: 40px; height: auto;" />
+                                </div>
+                            </td>
+                            <td> <b> <a href="{% url 'team' team.id %}"> {{team.name}} </a></b> </td>
+                            <td> <a href="{% url 'viewmanager' team.manager.user.id %}"> <i> {{team.manager}} </i> </a> </td>
+                            <td><b> {{team.Points}}</b></td>
+                            <td>{{team.N_Matches}}</td>
+                            <td>{{team.N_Wins}}</td>
+                            <td>{{team.N_Draws}}</td>
+                            <td>{{team.N_Losses}}</td>
+                            <td>{{team.Score_P}}</td>
+                            <td>{{team.Score_M}}</td>
+                            <td><b>{{team.Score_result}}</b></td>
+                            
+                      </tr>
+            
+                   {% endfor %} 
+            
+                </tbody>
+              </table>
+            
+            </div>
+
+            <div class="table-responsive-xxl">
+            <h1 class="ceneter" style="text-align: center; color: #337ab7;">Matches</h1>
+              <hr>
+              {% for match in select_match %}
+              <div style="text-align: center" class="row">
+                <div class="col-4"> 
+                  <p style="margin: 0;"> <i> {{match.date|date:"d M Y"}}</i></p>
+                </div>
+              <div style="text-align: center" class="row">
+                <div class="col-4"> 
+                  <img style="height: 50px; width: 50px;" src="{{ match.Team_home.image.url }}">    {{match.Team_home.name}}   <b> <button>{{match.Team_home_goal}}</button> : <button>{{match.Team_visitor_goal}}</button></b> {{match.Team_visitor.name}} <img style="height: 50px; width: 50px;" src="{{ match.Team_visitor.image.url }}">
+                </div>
+                <div style="text-align: center" class="row">
+                  <div class="col-4"> 
+                    <p style="margin: 0;"> <i> {{match.body}}</i></p>
+                  </div>
+                
+                <hr>
+              </div>
+              {% endfor %} 
+
+        </div>
+      </div>
+    </div>
+  </div>    
+</div>
+        
+{% endblock %}

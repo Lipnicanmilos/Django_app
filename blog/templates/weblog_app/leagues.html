@@ -1,0 +1,35 @@
+{% extends "weblog_app/base.html" %}
+
+{% block body %}
+
+<div class="container">
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Info!</strong> {{ message }}  
+                {% endfor %}  
+            </div>
+        
+            <div class="blog_post center">
+                <div class="container py-5">
+                    <div class="container_copy" >
+
+                            
+                            {% for torney in name_torney %}
+
+                            <div class="card-body" style="display: grid;">
+                              <a href="{% url 'tables' torney.id %}" class="btn btn-primary">{{ torney.name }}</a>
+                              <h5 class="card-title" style="text-align: center;">{{ torney.date }}</h5>
+                              <hr style="margin: 5px;">
+                            </div>
+                          
+                                   
+                                  
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+</div>
+        
+{% endblock %}
