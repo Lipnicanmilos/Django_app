@@ -1,0 +1,25 @@
+# Virtuálne prostredie
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Databáza a logy
+*.sqlite3
+sql.log
+
+# Citlivé súbory
+.env
+
+# Editor
+.vscode/
+
+# Zip/backup súbory
+*.zip
+
+# Django statické/media súbory (generujú sa)
+staticfiles/
+media/ck_post_uploads/
