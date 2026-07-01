@@ -10,17 +10,7 @@ pip install django-crispy-forms
 
 # Username: Admin
 # Email address: milos@milos.sk
-# # Admin36
 
-# Milos
-# Admin_123
-
-# Ferko
-# ferko@ferko.sk
-# Admin_123
-
-# Juraj
-# 12_He_slo
 
 # --sign up register 
 # --login 
