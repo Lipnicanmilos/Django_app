@@ -8,8 +8,6 @@ pip install django-ckeditor
 pip install django-dynamic-admin-forms
 pip install django-crispy-forms
 
-# Username: Admin
-# Email address: milos@milos.sk
 
 
 # --sign up register 
